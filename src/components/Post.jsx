@@ -30,6 +30,13 @@ export function Post({ author, publishedAt, content }) {
   }
 
   function handleNewCommentChange() {
+    event.target.setCustomValidity('');
+    // Pra voltar ao normal se ativar a funcao handleNewCommentInvalid
+    setNewCommentText(event.target.value);
+  }
+
+  function handleNewCommentInvalid() {
+    event.target.setCustomValidity('Esse campo eh obrigatorio');
     setNewCommentText(event.target.value);
   }
 
@@ -79,6 +86,8 @@ export function Post({ author, publishedAt, content }) {
           placeholder="Deixe um comentario"
           onChange={handleNewCommentChange}
           value={newCommentText}
+          onInvalid={handleNewCommentInvalid}
+          required
         />
 
         <footer>
