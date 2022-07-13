@@ -33,6 +33,18 @@ export function Post({ author, publishedAt, content }) {
     setNewCommentText(event.target.value);
   }
 
+  function deleteComment(commentToDelete) {
+    const commentsWithoutDeletedOne = comments.filter(comment => {
+      // console.log(commentToDelete) -> Esse eh o comentario a ser excluido
+
+      return comment !== commentToDelete;
+      // O comentario selecionado vai retornar false na comparacao, e os outros vao retornar true
+      // Somente os que sao diferentes na comparacao (true) sao retornados
+    })
+
+    setComments(commentsWithoutDeletedOne);
+  }
+
   return (
     <article className={styles.post}>
       <header>
@@ -76,7 +88,13 @@ export function Post({ author, publishedAt, content }) {
 
       <div className={styles.commentList}>
         {comments.map(comment => {
-          return <Comment key={comment} content={comment} />
+          return (
+            <Comment
+              key={comment}
+              content={comment}
+              onDeleteComment={deleteComment}
+            />
+          )
         })}
       </div>
     </article>
